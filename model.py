@@ -2,6 +2,7 @@ from transformers import AutoImageProcessor, AutoModelForImageClassification
 from PIL import Image
 import torch
 
+
 MODEL_NAME = "nateraw/fer"
 
 print("Loading model...")
@@ -11,6 +12,15 @@ model.eval()
 print("Model loaded successfully.")
 
 def predict_emotion(image_path):
+    """
+    Predict emotion from an image.
+
+    Args:
+        image_path (str): Path to the image.
+
+    Returns:
+        tuple: (predicted_label, confidence_percentage)
+    """
     image = Image.open(image_path).convert("RGB")
     inputs = processor(images=image, return_tensors="pt")
 
