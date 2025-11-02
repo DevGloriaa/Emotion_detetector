@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Emotion Detection Result</title>
+  <title>Detection Result</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -12,20 +12,20 @@
   </header>
 
   <main>
-    <div class="card result-card">
-      <img src="{{ image_path }}" alt="Uploaded Image">
+    <div class="result-card">
+      <img src="{{ url_for('static', filename='uploads/' + filename) }}" alt="Uploaded Image">
       <div class="result-details">
         <p><strong>Name:</strong> {{ name }}</p>
-        <p><strong>Detected Emotion:</strong> {{ emotion }}</p>
+        <p><strong>Emotion:</strong> {{ label }}</p>
         <p><strong>Confidence:</strong> {{ confidence }}%</p>
-        <p><strong>Timestamp:</strong> {{ timestamp }}</p>
+        <p><small>Detected on {{ timestamp }}</small></p>
       </div>
-      <a href="/" class="back-button">← Back to Home</a>
+      <a href="/" class="back-button">Try Another</a>
     </div>
   </main>
 
   <footer>
-    <p>© 2025 Obiorah Gloria Ijeoma</p>
+    <p>Made with ❤️ by Gloria Obiorah</p>
   </footer>
 </body>
 </html>
