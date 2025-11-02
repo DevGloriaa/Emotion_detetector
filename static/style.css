@@ -14,7 +14,6 @@ body {
   color: #333;
 }
 
-/* ===== Header ===== */
 header {
   text-align: center;
   color: white;
@@ -33,7 +32,6 @@ header p {
   margin-top: 0.5rem;
 }
 
-/* ===== Main Layout ===== */
 main {
   display: flex;
   justify-content: center;
@@ -41,18 +39,15 @@ main {
   padding: 2rem;
 }
 
-/* ===== Card (Form + Result) ===== */
 .card {
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border-radius: 15px;
   padding: 2rem 2.5rem;
   width: 100%;
   max-width: 450px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   color: #fff;
-  text-align: left;
   animation: slideUp 0.7s ease;
 }
 
@@ -60,10 +55,8 @@ main {
   text-align: center;
   margin-bottom: 1.5rem;
   font-size: 1.8rem;
-  color: #ffffff;
 }
 
-/* ===== Input Fields ===== */
 .input-group {
   margin-bottom: 1.2rem;
 }
@@ -88,10 +81,9 @@ input[type="file"] {
 
 input[type="text"]:focus,
 input[type="file"]:focus {
-  box-shadow: 0 0 6px rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
 }
 
-/* ===== Button Styling ===== */
 button {
   width: 100%;
   padding: 0.9rem;
@@ -102,28 +94,40 @@ button {
   border-radius: 8px;
   cursor: pointer;
   font-size: 1rem;
-  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+  transition: background 0.3s, transform 0.2s;
 }
 
 button:hover {
   background-color: #0077b6;
-  transform: scale(1.03);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  transform: scale(1.02);
 }
 
-/* ===== Result Card ===== */
-.result-card {
+footer {
   text-align: center;
-  animation: slideUp 0.7s ease;
+  padding: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.9rem;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .result-card img {
   display: block;
   margin: 0 auto 1.5rem auto;
-  max-width: 260px;
+  max-width: 250px;
   border-radius: 10px;
   border: 3px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
 .result-details p {
@@ -132,7 +136,6 @@ button:hover {
   color: #ffffff;
 }
 
-/* ===== Back Button ===== */
 .back-button {
   display: block;
   text-align: center;
@@ -148,45 +151,10 @@ button:hover {
 
 .back-button:hover {
   background-color: #0077b6;
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 
-/* ===== Footer ===== */
-footer {
+.result-card {
   text-align: center;
-  padding: 1rem;
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 0.9rem;
-  background: rgba(0, 0, 0, 0.1);
-}
-
-/* ===== Animations ===== */
-@keyframes slideUp {
-  from {
-    transform: translateY(40px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-/* ===== Responsive Design ===== */
-@media (max-width: 500px) {
-  header h1 {
-    font-size: 1.8rem;
-  }
-
-  header p {
-    font-size: 0.95rem;
-  }
-
-  .card {
-    padding: 1.5rem;
-  }
-
-  .result-card img {
-    max-width: 200px;
-  }
+  animation: slideUp 0.7s ease;
 }

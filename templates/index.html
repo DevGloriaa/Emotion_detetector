@@ -3,34 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Emotion Detection</title>
+  <title>Emotion Detector</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
   <header>
-    <h1>Facial Emotion Detector</h1>
-    <p>Upload a photo to detect your facial emotion!</p>
+    <h1>Emotion Detector</h1>
+    <p>Upload your image to discover your facial emotion instantly</p>
   </header>
 
   <main>
     <div class="card">
-      <h2>Upload Your Image</h2>
-      <form method="POST" enctype="multipart/form-data">
+      <h2>Upload Image</h2>
+      <form action="/detect" method="post" enctype="multipart/form-data">
         <div class="input-group">
-          <label for="name">Full Name:</label>
-          <input type="text" name="name" required>
+          <label for="name">Your Name:</label>
+          <input type="text" id="name" name="name" placeholder="Enter your name" required>
         </div>
+
         <div class="input-group">
-          <label for="image">Upload Image:</label>
-          <input type="file" name="image" accept="image/*" required>
+          <label for="image">Select Image:</label>
+          <input type="file" id="image" name="image" accept="image/*" required>
         </div>
+
         <button type="submit">Detect Emotion</button>
       </form>
     </div>
   </main>
 
   <footer>
-    <p>© 2025 Obiorah Gloria Ijeoma</p>
+    <p>Made with ❤️ by Gloria Obiorah</p>
   </footer>
 </body>
 </html>

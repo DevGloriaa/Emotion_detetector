@@ -1,14 +1,11 @@
 from transformers import AutoModelForImageClassification, AutoImageProcessor
-import torch
 from PIL import Image
+import torch
 
-MODEL_NAME = "dima806/facial_emotions_image_detection"
 
-print("Downloading and loading emotion detection model...")
-model = AutoModelForImageClassification.from_pretrained(MODEL_NAME)
+MODEL_NAME = "tae898/emotion-detection-facial"
 processor = AutoImageProcessor.from_pretrained(MODEL_NAME)
-print("Model loaded successfully.")
-
+model = AutoModelForImageClassification.from_pretrained(MODEL_NAME)
 
 def predict_emotion(image_path):
     image = Image.open(image_path).convert("RGB")
@@ -16,9 +13,9 @@ def predict_emotion(image_path):
 
     with torch.no_grad():
         outputs = model(**inputs)
-        probs = torch.nn.functional.softmax(outputs.logits, dim=-1)
-        pred_idx = probs.argmax().item()
-        label = model.config.id2label[pred_idx]
-        confidence = probs[0][pred_idx].item()
+        logits = outputs.logits
+        predicted_class = torch.argmax(logits, dim=-1).item()
+        confidence = torch.nn.functional.softmax(logits, dim=-1)[0][predicted_class].item()
 
-    return label, confidence
+    label = model.config.id2label[predicted_class]
+    return label, round(confidence * 100, 2)
