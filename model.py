@@ -1,29 +1,15 @@
-from transformers import AutoImageProcessor, AutoModelForImageClassification
-from PIL import Image
-import torch
+def load_model(model_path):
+    from tensorflow.keras.models import load_model
+    return load_model(model_path)
 
+def predict_emotion(model, image_path):
+    from tensorflow.keras.preprocessing import image
+    import numpy as np
 
-MODEL_NAME = "trpakov/vit-face-expression"
+    img = image.load_img(image_path, target_size=(48,48), color_mode="grayscale")
+    img_array = image.img_to_array(img)/255.0
+    img_array = np.expand_dims(img_array, axis=0)
 
-print("Loading model...")
-processor = AutoImageProcessor.from_pretrained(MODEL_NAME)
-model = AutoModelForImageClassification.from_pretrained(MODEL_NAME)
-model.eval()
-print("Model loaded successfully.")
-
-def predict_emotion(image_path):
-    """
-    Predicts the emotion of a face in an image.
-    Returns the label and confidence.
-    """
-    image = Image.open(image_path).convert("RGB")
-    inputs = processor(images=image, return_tensors="pt")
-
-    with torch.no_grad():
-        outputs = model(**inputs)
-        probs = torch.nn.functional.softmax(outputs.logits, dim=-1)
-        predicted_class_idx = probs.argmax().item()
-        predicted_label = model.config.id2label[predicted_class_idx]
-        confidence = probs[0][predicted_class_idx].item()
-
-    return predicted_label, round(confidence * 100, 2)
+    predictions = model.predict(img_array)
+    emotions = ['angry', 'disgust', 'fear', 'happy', 'neutral', 'sad', 'surprise']
+    return emotions[np.argmax(predictions)]
