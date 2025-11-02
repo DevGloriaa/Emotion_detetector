@@ -24,7 +24,6 @@ def detect():
     file_path = os.path.join(app.config["UPLOAD_FOLDER"], file.filename)
     file.save(file_path)
 
-    # Predict emotion
     label, confidence = predict_emotion(file_path)
 
     return render_template(
@@ -37,6 +36,5 @@ def detect():
     )
 
 if __name__ == "__main__":
-    import os
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
