@@ -1,38 +1,84 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Emotion Detector</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="utf-8">
+  <title>Emotion Detection</title>
+  <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-  <header>
-    <h1>Emotion Detector</h1>
-    <p>Upload your image to discover your facial emotion instantly</p>
-  </header>
+  <h1>Emotion Detection</h1>
 
-  <main>
-    <div class="card">
-      <h2>Upload Image</h2>
-      <form action="/detect" method="post" enctype="multipart/form-data">
-        <div class="input-group">
-          <label for="name">Your Name:</label>
-          <input type="text" id="name" name="name" placeholder="Enter your name" required>
-        </div>
+  <section id="upload">
+    <h2>Upload Image</h2>
+    <form id="uploadForm" enctype="multipart/form-data">
+      <input type="text" name="name" placeholder="Your name (optional)"><br>
+      <input type="file" name="file" accept="image/*"><br>
+      <button type="submit">Upload & Detect</button>
+    </form>
+    <div id="uploadResult"></div>
+  </section>
 
-        <div class="input-group">
-          <label for="image">Select Image:</label>
-          <input type="file" id="image" name="image" accept="image/*" required>
-        </div>
+  <hr>
 
-        <button type="submit">Detect Emotion</button>
-      </form>
-    </div>
-  </main>
+  <section id="webcamSection">
+    <h2>Live Webcam Capture</h2>
+    <video id="video" width="320" height="240" autoplay></video>
+    <br>
+    <input id="camName" placeholder="Your name (optional)">
+    <button id="snap">Capture & Detect</button>
+    <canvas id="canvas" width="320" height="240" style="display:none;"></canvas>
+    <div id="webcamResult"></div>
+  </section>
 
-  <footer>
-    <p>Made with ❤️ by Gloria Obiorah</p>
-  </footer>
+  <hr>
+
+  <section>
+    <h2>Recent Predictions</h2>
+    <button id="loadHistory">Load History</button>
+    <ul id="history"></ul>
+  </section>
+
+<script>
+document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const fd = new FormData(form);
+  const res = await fetch('/upload', { method: 'POST', body: fd });
+  const data = await res.json();
+  document.getElementById('uploadResult').innerText = JSON.stringify(data);
+});
+
+const video = document.getElementById('video');
+navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+  video.srcObject = stream;
+}).catch(err => console.error(err));
+
+document.getElementById('snap').addEventListener('click', async () => {
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  const dataUrl = canvas.toDataURL('image/jpeg');
+  const name = document.getElementById('camName').value || 'anonymous';
+  const res = await fetch('/webcam', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ image: dataUrl, name })
+  });
+  const data = await res.json();
+  document.getElementById('webcamResult').innerText = JSON.stringify(data);
+});
+
+document.getElementById('loadHistory').addEventListener('click', async () => {
+  const res = await fetch('/history');
+  const arr = await res.json();
+  const list = document.getElementById('history');
+  list.innerHTML = '';
+  arr.forEach(it => {
+    const li = document.createElement('li');
+    li.innerHTML = `<strong>${it.name}</strong> - ${it.prediction} - <em>${it.created_at}</em> - <a href="/${it.image}" target="_blank">view</a>`;
+    list.appendChild(li);
+  });
+});
+</script>
 </body>
 </html>
