@@ -8,7 +8,8 @@
 </head>
 <body>
   <header>
-    <h1>Emotion Detection Result</h1>
+    <h1>🎯 Emotion Detection Result</h1>
+    <p>Here’s what our AI detected from your image.</p>
   </header>
 
   <main>
@@ -16,11 +17,11 @@
       <img src="{{ url_for('static', filename='uploads/' + filename) }}" alt="Uploaded Image">
       <div class="result-details">
         <p><strong>Name:</strong> {{ name }}</p>
-        <p><strong>Emotion:</strong> {{ label }}</p>
+        <p><strong>Emotion:</strong> <span class="emotion-label">{{ label }}</span></p>
         <p><strong>Confidence:</strong> {{ confidence }}%</p>
         <p><small>Detected on {{ timestamp }}</small></p>
       </div>
-      <a href="/" class="back-button">Try Another</a>
+      <a href="/" class="back-button">🔄 Try Another</a>
     </div>
   </main>
 
