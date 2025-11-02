@@ -1,5 +1,7 @@
-Flask==2.3.3
-tensorflow==2.13.0
-numpy
+torch
+torchvision
+fer-pytorch
+flask
 pillow
 opencv-python
+numpy

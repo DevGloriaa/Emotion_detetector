@@ -1,15 +1,29 @@
-def load_model(model_path):
-    from tensorflow.keras.models import load_model
-    return load_model(model_path)
+from fer_pytorch import get_pretrained_model
+import torch
+from PIL import Image
+import torchvision.transforms as transforms
 
+# Load pre-trained PyTorch emotion model
+def load_model(model_name="resnet34"):
+    model = get_pretrained_model(model_name)
+    model.eval()  # Set model to evaluation mode
+    return model
+
+# Predict emotion from an image path
 def predict_emotion(model, image_path):
-    from tensorflow.keras.preprocessing import image
-    import numpy as np
-
-    img = image.load_img(image_path, target_size=(48,48), color_mode="grayscale")
-    img_array = image.img_to_array(img)/255.0
-    img_array = np.expand_dims(img_array, axis=0)
-
-    predictions = model.predict(img_array)
-    emotions = ['angry', 'disgust', 'fear', 'happy', 'neutral', 'sad', 'surprise']
-    return emotions[np.argmax(predictions)]
+    transform = transforms.Compose([
+        transforms.Resize((48,48)),
+        transforms.Grayscale(num_output_channels=1),
+        transforms.ToTensor(),
+        transforms.Normalize((0.5,), (0.5,))
+    ])
+    
+    img = Image.open(image_path).convert("L")
+    tensor = transform(img).unsqueeze(0)  # Add batch dimension
+    
+    with torch.no_grad():
+        output = model(tensor)
+        _, pred = torch.max(output,1)
+    
+    emotions = ['angry','disgust','fear','happy','neutral','sad','surprise']
+    return emotions[pred.item()]
