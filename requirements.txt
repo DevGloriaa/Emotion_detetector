@@ -1,6 +1,6 @@
 Flask==2.3.3
-torch==2.9.0
+torch==2.0.1
 transformers==4.35.0
-Pillow==12.0.0
+Pillow==10.2.0
 gunicorn==20.1.0
 opencv-python-headless==4.8.1.78
