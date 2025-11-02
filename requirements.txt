@@ -3,3 +3,6 @@ torch
 transformers
 Pillow
 gunicorn
+opencv-python-headless
+tensorflow
+fer
