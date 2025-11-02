@@ -1,0 +1,192 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  color: #333;
+}
+
+/* ===== Header ===== */
+header {
+  text-align: center;
+  color: white;
+  padding: 2rem 1rem;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+header p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-top: 0.5rem;
+}
+
+/* ===== Main Layout ===== */
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+/* ===== Card (Form + Result) ===== */
+.card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 15px;
+  padding: 2rem 2.5rem;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  color: #fff;
+  text-align: left;
+  animation: slideUp 0.7s ease;
+}
+
+.card h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  color: #ffffff;
+}
+
+/* ===== Input Fields ===== */
+.input-group {
+  margin-bottom: 1.2rem;
+}
+
+label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+  color: #e0e0e0;
+}
+
+input[type="text"],
+input[type="file"] {
+  width: 100%;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="file"]:focus {
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.7);
+}
+
+/* ===== Button Styling ===== */
+button {
+  width: 100%;
+  padding: 0.9rem;
+  background-color: #00b4d8;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+button:hover {
+  background-color: #0077b6;
+  transform: scale(1.03);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+/* ===== Result Card ===== */
+.result-card {
+  text-align: center;
+  animation: slideUp 0.7s ease;
+}
+
+.result-card img {
+  display: block;
+  margin: 0 auto 1.5rem auto;
+  max-width: 260px;
+  border-radius: 10px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.result-details p {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+  color: #ffffff;
+}
+
+/* ===== Back Button ===== */
+.back-button {
+  display: block;
+  text-align: center;
+  margin: 1.5rem auto 0 auto;
+  padding: 0.8rem 1rem;
+  background-color: #00b4d8;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.back-button:hover {
+  background-color: #0077b6;
+  transform: scale(1.03);
+}
+
+/* ===== Footer ===== */
+footer {
+  text-align: center;
+  padding: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.9rem;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* ===== Animations ===== */
+@keyframes slideUp {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 500px) {
+  header h1 {
+    font-size: 1.8rem;
+  }
+
+  header p {
+    font-size: 0.95rem;
+  }
+
+  .card {
+    padding: 1.5rem;
+  }
+
+  .result-card img {
+    max-width: 200px;
+  }
+}

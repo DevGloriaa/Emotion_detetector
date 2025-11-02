@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emotion Detection Result</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <h1>Emotion Detection Result</h1>
+  </header>
+
+  <main>
+    <div class="card result-card">
+      <img src="{{ image_path }}" alt="Uploaded Image">
+      <div class="result-details">
+        <p><strong>Name:</strong> {{ name }}</p>
+        <p><strong>Detected Emotion:</strong> {{ emotion }}</p>
+        <p><strong>Confidence:</strong> {{ confidence }}%</p>
+        <p><strong>Timestamp:</strong> {{ timestamp }}</p>
+      </div>
+      <a href="/" class="back-button">← Back to Home</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 Obiorah Gloria Ijeoma</p>
+  </footer>
+</body>
+</html>
